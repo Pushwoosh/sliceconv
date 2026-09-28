@@ -15,6 +15,13 @@ func Integer[T1 constraints.Integer, T2 constraints.Integer](from []T1) []T2{}
 func Float[T1 constraints.Float, T2 constraints.Float](from []T1) []T2 {}
 ```
 
+# String
+
+`String` converts any string-based slice to any other string-based slice.
+```go
+func String[T1 ~string, T2 ~string](from []T1) []T2 {}
+```
+
 # Examples
 
 ## Integer
@@ -42,4 +49,16 @@ User defined types:
 ```go
     from := []float32{1.1, 2.2, 3.3}
     to := Float[float32, float64](from)
+```
+
+## String
+```go
+    type protoStatus string
+    type sdkStatus string
+    const (
+        Active  sdkStatus = "active"
+        Blocked sdkStatus = "blocked"
+    )
+    from := []sdkStatus{Active, Blocked}
+    to := String[sdkStatus, protoStatus](from)
 ```
